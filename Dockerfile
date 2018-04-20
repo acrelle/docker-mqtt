@@ -1,6 +1,6 @@
 FROM python:2.7
 
-LABEL Maintainer="anthony@relle.co.uk"
+LABEL maintainer="anthony@relle.co.uk"
 
 RUN pip install paho-mqtt && apt update && apt install -y mosquitto-clients lirc
 
@@ -11,5 +11,6 @@ COPY start.sh /app/start.sh
 
 ENV MQTTLAUNCHERCONFIG=/config/mqtt-launcher.conf
 
+WORKDIR /config
 VOLUME "/config/"
 CMD "/app/start.sh"
