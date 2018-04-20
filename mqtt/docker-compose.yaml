@@ -1,0 +1,16 @@
+version: '2'
+services:
+  mqtt:
+    build: .
+    image: acrelle/mqtt:rpi
+    container_name: mqtt
+    devices:
+      - "/dev/mem:/dev/mem"
+    cap_add:
+      - SYS_RAWIO
+    volumes:
+     - ~/homecontrol/pi2:/config
+    environment:
+     - PUID=1001
+     - PGID=100
+    restart: 'no'

@@ -1,13 +1,15 @@
 version: '2'
 services:
-  mqtt-lirc:
+  mqtt-launcher:
     build: .
-    image: acrelle/mqtt-lirc
-    container_name: mqtt-lirc
+    image: acrelle/mqtt-launcher:rpi
+    container_name: mqtt-launcher
     devices:
-      - /dev/lirc0:/dev/lirc0
+      - "/dev/mem:/dev/mem"
+    cap_add:
+      - SYS_RAWIO
     volumes:
-     - ~/homecontrol/pi1:/config
+     - ~/homecontrol/pi2:/config
     environment:
      - PUID=1001
      - PGID=100

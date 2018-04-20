@@ -1,0 +1,18 @@
+version: '2'
+services:
+  mqtt-lirc:
+    build: .
+    image: acrelle/mqtt-lirc:rpi
+    container_name: mqtt-lirc
+    devices:
+      - "/dev/lirc0:/dev/lirc0"
+      - "/dev/mem:/dev/mem"
+    cap_add:
+      - SYS_RAWIO
+    volumes:
+     - ~/homecontrol/pi1:/config
+    environment:
+     - PUID=1001
+     - PGID=100
+     - MQTTLAUNCHERCONFIG=/config/mqtt-launcher.conf
+    restart: always
