@@ -7,7 +7,7 @@ services:
     devices:
       - /dev/lirc0:/dev/lirc0
     volumes:
-     - /home/snow/homecontrol/pi1:/config
+     - ~/homecontrol/pi1:/config
     environment:
      - PUID=1001
      - PGID=100
