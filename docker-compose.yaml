@@ -1,0 +1,15 @@
+version: '2'
+services:
+  mqtt-lirc:
+    build: .
+    image: acrelle/mqtt-lirc
+    container_name: mqtt-lirc
+    devices:
+      - /dev/lirc0:/dev/lirc0
+    volumes:
+     - /home/snow/homecontrol/pi1:/config
+    environment:
+     - PUID=1001
+     - PGID=100
+     - MQTTLAUNCHERCONFIG=/config/mqtt-launcher.conf
+    restart: always
