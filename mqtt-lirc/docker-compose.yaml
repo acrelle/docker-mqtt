@@ -4,13 +4,11 @@ services:
     build: .
     image: acrelle/mqtt-lirc:rpi
     container_name: mqtt-lirc
+    privileged: true    
     devices:
-      - "/dev/lirc0:/dev/lirc0"
-      - "/dev/mem:/dev/mem"
-    cap_add:
-      - SYS_RAWIO
+      - /dev/lirc0:/dev/lirc0"
     volumes:
-     - ~/homecontrol/pi1:/config
+     - ~/appdata/mqtt-lirc/config:/config
     environment:
      - PUID=1001
      - PGID=100

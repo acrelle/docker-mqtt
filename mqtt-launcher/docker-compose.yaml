@@ -4,12 +4,9 @@ services:
     build: .
     image: acrelle/mqtt-launcher:rpi
     container_name: mqtt-launcher
-    devices:
-      - "/dev/mem:/dev/mem"
-    cap_add:
-      - SYS_RAWIO
+    privileged: true
     volumes:
-     - ~/homecontrol/pi2:/config
+     - ~/appdata/mqtt/config:/config
     environment:
      - PUID=1001
      - PGID=100
