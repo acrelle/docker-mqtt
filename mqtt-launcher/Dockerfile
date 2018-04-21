@@ -9,3 +9,5 @@ ENV MQTTLAUNCHERCONFIG=/config/mqtt-launcher.conf
 COPY start.sh /app
 
 CMD [ "/app/mqtt-launcher/mqtt-launcher.py" ]
+
+RUN usermod -a -G tty,dialout abc
