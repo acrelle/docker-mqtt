@@ -2,7 +2,7 @@ version: '2'
 services:
   mqtt-launcher:
     build: .
-    image: acrelle/mqtt-launcher:rpi-launcher
+    image: acrelle/mqtt:rpi-launcher
     container_name: mqtt-launcher
     privileged: true
     volumes:
