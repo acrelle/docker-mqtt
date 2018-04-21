@@ -3,7 +3,7 @@ FROM python:2.7
 LABEL maintainer="anthony@relle.co.uk"
 
 RUN pip install --upgrade pip setuptools
-RUN pip install paho-mqtt RPi.GPIO && apt update && apt install -y mosquitto-clients
+RUN pip install paho-mqtt RPi.GPIO pyserial && apt update && apt install -y mosquitto-clients
 
 RUN mkdir -p /app/adafruit-python/ && \
 git clone https://github.com/adafruit/Adafruit_Python_DHT.git /app/adafruit-python/ && \
