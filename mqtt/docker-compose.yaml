@@ -2,7 +2,7 @@ version: '2'
 services:
   mqtt:
     build: .
-    image: acrelle/mqtt:rpi
+    image: acrelle/mqtt:rpi-mqtt
     container_name: mqtt
     privileged: true
     volumes:
