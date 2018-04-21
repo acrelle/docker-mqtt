@@ -2,7 +2,7 @@ version: '2'
 services:
   mqtt-lirc:
     build: .
-    image: acrelle/mqtt-lirc:rpi-lirc
+    image: acrelle/mqtt:rpi-lirc
     container_name: mqtt-lirc
     privileged: true    
     devices:
