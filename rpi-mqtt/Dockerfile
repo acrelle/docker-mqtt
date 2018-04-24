@@ -1,4 +1,4 @@
-FROM arm32v6/python:2.7-alpine3.6
+FROM arm32v6/python:2.7-alpine3.7
 
 LABEL maintainer="anthony@relle.co.uk"
 
