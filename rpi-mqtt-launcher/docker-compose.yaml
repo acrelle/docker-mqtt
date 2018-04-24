@@ -1,0 +1,14 @@
+version: '2'
+services:
+  mqtt-launcher:
+    build: .
+    image: acrelle/rpi-mqtt-launcher
+    container_name: mqtt-launcher
+    privileged: true
+    volumes:
+     - ~/appdata/mqtt/config:/config
+    environment:
+     - PUID=1001
+     - PGID=100
+     - MQTTLAUNCHERCONFIG=/config/mqtt-launcher.conf
+    restart: always
