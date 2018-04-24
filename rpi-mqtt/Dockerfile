@@ -1,4 +1,4 @@
-FROM arm32v5/python:2.7
+FROM python:2.7
 
 LABEL maintainer="anthony@relle.co.uk"
 
