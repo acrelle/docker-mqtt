@@ -13,4 +13,4 @@ services:
      - PUID=1001
      - PGID=100
      - MQTTLAUNCHERCONFIG=/config/mqtt-launcher.conf
-    restart: always
+    restart: unless-stopped
