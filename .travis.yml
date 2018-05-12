@@ -6,15 +6,17 @@ services:
 script:
 
   # Build all images
+  - cd rpi-mqtt
+  - docker build --build-arg PLATFORM=linux-amd64 -t acrelle/rpi-mqtt:linux-amd64 .-mqtt
+  - docker build --build-arg PLATFORM=linux-arm -t acrelle/rpi-mqtt:linux-arm -f .Dockerfile.linux-armhf .
   
-  - docker build --build-arg PLATFORM=linux-amd64 -t acrelle/rpi-mqtt:linux-amd64 ./rpi-mqtt
-  - docker build --build-arg PLATFORM=linux-arm -t acrelle/rpi-mqtt:linux-arm -f ./rpi-mqtt/Dockerfile.linux-armhf ./rpi-mqtt
+  - cd ../rpi-mqtt-launcher
+  - docker build --build-arg PLATFORM=linux-amd64 -t acrelle/rpi-mqtt-launcher:linux-amd64 .
+  - docker build --build-arg PLATFORM=linux-arm -t acrelle/rpi-mqtt-launcher:linux-arm -f .Dockerfile.linux-armhf .
   
-  - docker build --build-arg PLATFORM=linux-amd64 -t acrelle/rpi-mqtt-launcher:linux-amd64 ./rpi-mqtt-launcher
-  - docker build --build-arg PLATFORM=linux-arm -t acrelle/rpi-mqtt-launcher:linux-arm -f ./rpi-mqtt-launcher/Dockerfile.linux-armhf ./rpi-mqtt-launcher
-  
-  - docker build --build-arg PLATFORM=linux-amd64 -t acrelle/rpi-mqtt-lirc:linux-amd64 ./rpi-mqtt-lirc
-  - docker build --build-arg PLATFORM=linux-arm -t acrelle/rpi-mqtt-lirc:linux-arm -f ./rpi-mqtt-lirc/Dockerfile.linux-armhf ./rpi-mqtt-lirc
+  - cd ../rpi-mqtt-lirc
+  - docker build --build-arg PLATFORM=linux-amd64 -t acrelle/rpi-mqtt-lirc:linux-amd64 .
+  - docker build --build-arg PLATFORM=linux-arm -t acrelle/rpi-mqtt-lirc:linux-arm -f Dockerfile.linux-armhf .
   
   - >
 
