@@ -6,8 +6,8 @@ services:
 script:
 
   # Build all images
-  - docker build --build-arg PLATFORM=linux-amd64 -t acrelle/rpi-mqtt:linux-amd64 -f ./rpi-mqtt/Dockerfile .
-  - docker build --build-arg PLATFORM=linux-arm -t acrelle/rpi-mqtt:linux-arm -f ./rpi-mqtt/Dockerfile.linux-armhf .
+  - docker build --build-arg PLATFORM=linux-amd64 -t acrelle/rpi-mqtt:linux-amd64 -f ./rpi-mqtt/Dockerfile ./rpi-mqtt
+  - docker build --build-arg PLATFORM=linux-arm -t acrelle/rpi-mqtt:linux-arm -f ./rpi-mqtt/Dockerfile.linux-armhf ./rpi-mqtt
 
   - >
 
