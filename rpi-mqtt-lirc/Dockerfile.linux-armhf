@@ -1,10 +1,15 @@
-FROM acrelle/rpi-mqtt-launcher:linux-amd64
+FROM acrelle/rpi-mqtt-launcher:linux-arm
 
 LABEL maintainer="anthony@relle.co.uk"
+
+RUN [ "cross-build-start" ]
 
 RUN apt-get update && \
  apt-get install -y lirc && \
  rm -rf /var/lib/apt/lists/*
+
+RUN [ "cross-build-end" ]
+
 
 COPY hardware.conf lircd.conf /etc/lirc/
 COPY start.sh /app
