@@ -7,12 +7,12 @@ script:
 
   # Build all images
   - cd rpi-mqtt
-  - docker build --build-arg PLATFORM=linux-amd64 -t acrelle/rpi-mqtt:linux-amd64 .-mqtt
-  - docker build --build-arg PLATFORM=linux-arm -t acrelle/rpi-mqtt:linux-arm -f .Dockerfile.linux-armhf .
+  - docker build --build-arg PLATFORM=linux-amd64 -t acrelle/rpi-mqtt:linux-amd64 .
+  - docker build --build-arg PLATFORM=linux-arm -t acrelle/rpi-mqtt:linux-arm -f Dockerfile.linux-armhf .
   
   - cd ../rpi-mqtt-launcher
   - docker build --build-arg PLATFORM=linux-amd64 -t acrelle/rpi-mqtt-launcher:linux-amd64 .
-  - docker build --build-arg PLATFORM=linux-arm -t acrelle/rpi-mqtt-launcher:linux-arm -f .Dockerfile.linux-armhf .
+  - docker build --build-arg PLATFORM=linux-arm -t acrelle/rpi-mqtt-launcher:linux-arm -f Dockerfile.linux-armhf .
   
   - cd ../rpi-mqtt-lirc
   - docker build --build-arg PLATFORM=linux-amd64 -t acrelle/rpi-mqtt-lirc:linux-amd64 .
