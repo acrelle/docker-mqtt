@@ -1,4 +1,4 @@
-FROM raspberry-pi-python:2.7
+FROM resin/raspberry-pi-python:2.7
 
 LABEL maintainer="anthony@relle.co.uk"
 
