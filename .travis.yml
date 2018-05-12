@@ -1,0 +1,27 @@
+language: bash
+
+services:
+- docker
+
+script:
+
+  # Build all images
+  - docker build --build-arg PLATFORM=linux-amd64 -t acrelle/rpi-mqtt:linux-amd64 -f Dockerfile ./rpi-mqtt
+  - docker build --build-arg PLATFORM=linux-arm -t acrelle/rpi-mqtt:linux-arm -f Dockerfile.linux-armhf ./rpi-mqtt
+
+  - >
+
+    if [ -n "$TRAVIS_BUILD_NUMBER" ]; then
+      # Push all images
+      travis_retry timeout 5m docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
+      docker push acrelle/rpi-mqtt:linux-amd64
+      docker push acrelle/rpi-mqtt:linux-arm
+
+      # Download manifest-tool
+      wget https://github.com/estesp/manifest-tool/releases/download/v0.7.0/manifest-tool-linux-amd64
+      mv manifest-tool-linux-amd64 manifest-tool
+      chmod +x manifest-tool
+      # # Push manifest-list
+      ./manifest-tool push from-args --platforms linux/amd64,linux/arm --template "acrelle/rpi-mqtt:OS-ARCH" --target "acrelle/rpi-mqtt:$TRAVIS_BUILD_NUMBER"
+      ./manifest-tool push from-args --platforms linux/amd64,linux/arm --template "acrelle/rpi-mqtt:OS-ARCH" --target "acrelle/rpi-mqtt:latest"
+    fi
