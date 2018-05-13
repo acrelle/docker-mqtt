@@ -1,0 +1,43 @@
+language: bash
+
+services:
+- docker
+
+script:
+
+  # Build all images
+  - cd rpi-mqtt
+  - docker build --build-arg PLATFORM=linux-amd64 -t acrelle/rpi-mqtt:linux-amd64 .
+  - docker build --build-arg PLATFORM=linux-arm -t acrelle/rpi-mqtt:linux-arm -f Dockerfile.linux-armhf .
+  
+  - cd ../rpi-mqtt-launcher
+  - docker build --build-arg PLATFORM=linux-amd64 -t acrelle/rpi-mqtt-launcher:linux-amd64 .
+  - docker build --build-arg PLATFORM=linux-arm -t acrelle/rpi-mqtt-launcher:linux-arm -f Dockerfile.linux-armhf .
+  
+  - cd ../rpi-mqtt-lirc
+  - docker build --build-arg PLATFORM=linux-amd64 -t acrelle/rpi-mqtt-lirc:linux-amd64 .
+  - docker build --build-arg PLATFORM=linux-arm -t acrelle/rpi-mqtt-lirc:linux-arm -f Dockerfile.linux-armhf .
+  
+  - >
+
+    if [ -n "$TRAVIS_BUILD_NUMBER" ]; then
+      # Push all images
+      travis_retry timeout 5m docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
+      docker push acrelle/rpi-mqtt:linux-amd64
+      docker push acrelle/rpi-mqtt:linux-arm
+      docker push acrelle/rpi-mqtt-launcher:linux-amd64
+      docker push acrelle/rpi-mqtt-launcher:linux-arm
+      docker push acrelle/rpi-mqtt-lirc:linux-amd64
+      docker push acrelle/rpi-mqtt-lirc:linux-arm
+      # Download manifest-tool
+      wget https://github.com/estesp/manifest-tool/releases/download/v0.7.0/manifest-tool-linux-amd64
+      mv manifest-tool-linux-amd64 manifest-tool
+      chmod +x manifest-tool
+      # # Push manifest-list
+      ./manifest-tool push from-args --platforms linux/amd64,linux/arm --template "acrelle/rpi-mqtt:OS-ARCH" --target "acrelle/rpi-mqtt:$TRAVIS_BUILD_NUMBER"
+      ./manifest-tool push from-args --platforms linux/amd64,linux/arm --template "acrelle/rpi-mqtt:OS-ARCH" --target "acrelle/rpi-mqtt:latest"
+      ./manifest-tool push from-args --platforms linux/amd64,linux/arm --template "acrelle/rpi-mqtt-launcher:OS-ARCH" --target "acrelle/rpi-mqtt-launcher:$TRAVIS_BUILD_NUMBER"
+      ./manifest-tool push from-args --platforms linux/amd64,linux/arm --template "acrelle/rpi-mqtt-launcher:OS-ARCH" --target "acrelle/rpi-mqtt-launcher:latest"
+      ./manifest-tool push from-args --platforms linux/amd64,linux/arm --template "acrelle/rpi-mqtt-lirc:OS-ARCH" --target "acrelle/rpi-mqtt-lirc:$TRAVIS_BUILD_NUMBER"
+      ./manifest-tool push from-args --platforms linux/amd64,linux/arm --template "acrelle/rpi-mqtt-lirc:OS-ARCH" --target "acrelle/rpi-mqtt-lirc:latest"
+    fi

@@ -1,9 +1,12 @@
-FROM python:2.7
+FROM resin/raspberry-pi-python:2.7
 
 LABEL maintainer="anthony@relle.co.uk"
 
 # From Raspian
 ARG GPIO_GID=997
+
+RUN [ "cross-build-start" ]
+
 
 RUN pip install --no-cache-dir --upgrade pip setuptools && \
  pip install --no-cache-dir paho-mqtt RPi.GPIO pyserial && \
@@ -18,6 +21,9 @@ RUN mkdir -p /app/adafruit-python/ && \
  groupadd -r abc && \
  useradd -m --no-log-init -r -g abc -G gpio,tty,dialout abc && \
  mkdir -p /config
+
+RUN [ "cross-build-end" ]
+
 
 COPY start.sh setupuser.sh /app/
 

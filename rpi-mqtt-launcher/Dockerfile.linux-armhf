@@ -1,9 +1,13 @@
-FROM acrelle/rpi-mqtt:linux-amd64
+FROM acrelle/rpi-mqtt:linux-arm
 
 LABEL maintainer="anthony@relle.co.uk"
 
+RUN [ "cross-build-start" ]
+
 RUN mkdir -p /app/mqtt-launcher/ && \
  git clone https://github.com/jpmens/mqtt-launcher /app/mqtt-launcher
+
+RUN [ "cross-build-end" ]
 
 ENV MQTTLAUNCHERCONFIG=/config/mqtt-launcher.conf
 
