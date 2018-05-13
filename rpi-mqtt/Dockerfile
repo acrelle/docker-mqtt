@@ -11,7 +11,7 @@ RUN pip install --no-cache-dir --upgrade pip setuptools && \
  rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /app/adafruit-python/ && \
- git clone https://github.com/adafruit/Adafruit_Python_DHT.git /app/adafruit-python/ && \
+ git clone https://github.com/adafruit/Adafruit_Python_DHT.git /app/adafruit-python && \
  cd /app/adafruit-python/ && \
  python setup.py install --force-pi2 && \
  groupadd -g ${GPIO_GID} -o gpio && \
