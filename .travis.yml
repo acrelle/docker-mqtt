@@ -29,15 +29,28 @@ script:
       docker push acrelle/rpi-mqtt-launcher:linux-arm
       docker push acrelle/rpi-mqtt-lirc:linux-amd64
       docker push acrelle/rpi-mqtt-lirc:linux-arm
+
       # Download manifest-tool
       wget https://github.com/estesp/manifest-tool/releases/download/v0.7.0/manifest-tool-linux-amd64
       mv manifest-tool-linux-amd64 manifest-tool
       chmod +x manifest-tool
+
       # # Push manifest-list
       ./manifest-tool push from-args --platforms linux/amd64,linux/arm --template "acrelle/rpi-mqtt:OS-ARCH" --target "acrelle/rpi-mqtt:$TRAVIS_BUILD_NUMBER"
       ./manifest-tool push from-args --platforms linux/amd64,linux/arm --template "acrelle/rpi-mqtt:OS-ARCH" --target "acrelle/rpi-mqtt:latest"
+
+      # Update microbadger badge
+      curl -X POST "$MICROBADGER_URL1"
+
       ./manifest-tool push from-args --platforms linux/amd64,linux/arm --template "acrelle/rpi-mqtt-launcher:OS-ARCH" --target "acrelle/rpi-mqtt-launcher:$TRAVIS_BUILD_NUMBER"
       ./manifest-tool push from-args --platforms linux/amd64,linux/arm --template "acrelle/rpi-mqtt-launcher:OS-ARCH" --target "acrelle/rpi-mqtt-launcher:latest"
+
+      # Update microbadger badge
+      curl -X POST "$MICROBADGER_URL2"
+
       ./manifest-tool push from-args --platforms linux/amd64,linux/arm --template "acrelle/rpi-mqtt-lirc:OS-ARCH" --target "acrelle/rpi-mqtt-lirc:$TRAVIS_BUILD_NUMBER"
       ./manifest-tool push from-args --platforms linux/amd64,linux/arm --template "acrelle/rpi-mqtt-lirc:OS-ARCH" --target "acrelle/rpi-mqtt-lirc:latest"
+
+      # Update microbadger badge
+      curl -X POST "$MICROBADGER_URL3"
     fi
