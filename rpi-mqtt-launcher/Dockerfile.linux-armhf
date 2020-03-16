@@ -5,7 +5,8 @@ LABEL maintainer="anthony@relle.co.uk"
 RUN [ "cross-build-start" ]
 
 RUN mkdir -p /app/mqtt-launcher/ && \
- git clone https://github.com/jpmens/mqtt-launcher /app/mqtt-launcher
+ git clone https://github.com/jpmens/mqtt-launcher /app/mqtt-launcher && \
+ chmod +x /app/mqtt-launcher/mqtt-launcher.py
 
 RUN [ "cross-build-end" ]
 
