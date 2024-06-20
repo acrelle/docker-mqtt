@@ -3,7 +3,7 @@ FROM python:2.7
 LABEL maintainer="anthony@relle.co.uk"
 
 # From Raspian
-ARG GPIO_GID=997
+ARG GPIO_GID=993
 
 RUN pip install --no-cache-dir --upgrade pip setuptools && \
  pip install --no-cache-dir paho-mqtt RPi.GPIO pyserial && \

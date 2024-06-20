@@ -1,4 +1,4 @@
-FROM acrelle/rpi-mqtt-launcher:linux-amd64
+FROM acrelle/rpi-mqtt-launcher:linux-arm8
 
 LABEL maintainer="anthony@relle.co.uk"
 
